@@ -64,4 +64,41 @@ it("change production", function () {
   expect(asia.profit).equal(292);
 });
 
+//探测边界条件
 
+//无论何时，当我拿到一个集合（比如说此例中的生产商 集合）时，我总想看看集合为空时会发生什么。
+describe("no producers", function () {
+  let noProducers;
+  beforeEach(function () {
+    const data = { name: "No proudcers", producers: [], demand: 30, price: 20 };
+    noProducers = new Province(data);
+  });
+});
+
+it("shortfall", function () {
+  expect(noProducers.shortfall).equal(30);
+});
+it("profit", function () {
+  expect(noProducers.profit).equal(0);
+});
+
+//如果拿到的是数值类型，0会是不错的边界条件：
+it("zero demand", function () {
+  asia.demand = 0;
+  expect(asia.shortfall).equal(-25);
+  expect(asia.profit).equal(0);
+});
+
+//负值同样值得一试
+it("negative demand", function () {
+  asia.demand = -1;
+  expect(asia.shortfall).equal(-26);
+  expect(asia.profit).equal(-10);
+});
+
+//，我在这里扮演“程序公敌”的角色。我积极 思考如何破坏代码。我发现这种思维能够提高生产力，并且 很有趣——它纵容了我内心中比较促狭的那一部分
+it("empty string demand", function () {
+  asia.demand = "";
+  expect(asia.shortfall).NaN;
+  expect(asia.profit).NaN;
+});
