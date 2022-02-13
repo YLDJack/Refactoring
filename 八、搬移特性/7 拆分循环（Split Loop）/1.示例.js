@@ -1,8 +1,17 @@
-manager = aPerson.department.manager;
-//=========================================>
-manager = aPerson.manager;
-class Person {
-  get manager() {
-    return this.department.manager;
-  }
+let averageAge = 0;
+let totalSalary = 0;
+for (const p of people) {
+  averageAge += p.age;
+  totalSalary += p.salary;
 }
+averageAge = averageAge / people.length;
+//=========================================>
+let totalSalary = 0;
+for (const p of people) {
+  totalSalary += p.salary;
+}
+let averageAge = 0;
+for (const p of people) {
+  averageAge += p.age;
+}
+averageAge = averageAge / people.length;
