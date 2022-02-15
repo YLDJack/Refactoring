@@ -1,8 +1,6 @@
-manager = aPerson.manager;
-class Person {
-  get manager() {
-    return this.department.manager;
-  }
+const names = [];
+for (const i of input) {
+  if (i.job === "programmer") names.push(i.name);
 }
 //=========================================>
-manager = aPerson.department.manager;
+const names = input.filter((i) => i.job === "programmer").map((i) => i.name);

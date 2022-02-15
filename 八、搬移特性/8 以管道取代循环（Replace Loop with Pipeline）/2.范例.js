@@ -1,40 +1,29 @@
-//像这样，使用和封装Department都很简单。但如果大量 函数都这么做，我就不得不在Person之中安置大量委托行 为。这就该是移除中间人的时候了。首先在Person中建立一 个函数，用于获取受托对象
-manager = aPerson.manager;
-
-class Person {
-  constructor(name) {
-    this._name = name;
+//在这个例子中，我们有一个CSV文件，里面存有各个办公室（office）的一些数据。下面这个acquireData函数的作用是从数据中筛选出印度 的所有办公室，并返回办公室所在的城市（city）信息和联 系电话（telephone number）。
+function acquireData(input) {
+  const lines = input.split("\n");
+  let firstLine = true;
+  const result = [];
+  for (const line of lines) {
+    if (firstLine) {
+      firstLine = false;
+      continue;
+    }
+    if (line.trim() === "") continue;
+    const record = line.split(",");
+    if (record[1].trim() === "India") {
+      result.push({ city: record[0].trim(), phone: record[2].trim() });
+    }
   }
-  get name() {
-    return this._name;
-  }
-  //首先在Person中建立一 个函数，用于获取受托对象
-  get department() {
-    return this._department;
-  }
-  set department(arg) {
-    this._department = arg;
-  }
-  get manager() {
-    return this._department.manager;
-  }
+  return result;
 }
 
-class Department {
-  get chargeCode() {
-    return this._chargeCode;
-  }
-  set chargeCode(arg) {
-    this._chargeCode = arg;
-  }
-  get manager() {
-    return this._manager;
-  }
-  set manager(arg) {
-    this._manager = arg;
-  }
+//用管道取代后
+function acquireData(input) {
+  const lines = input.split("\n");
+  return lines
+    .slice(1)
+    .filter((line) => line.trim() !== "")
+    .map((line) => line.split(","))
+    .filter((fields) => fields[1].trim() === "India")
+    .map((fields) => ({ city: fields[0].trim(), phone: fields[2].trim() }));
 }
-
-//然后逐一处理每个客户端，使它们直接通过受托对象完 成工作
-//完成对客户端引用点的替换后，我就可以从Person中移 除manager方法了。我可以重复此法，移除Person中其他类似 的简单委托函数。
-manager = aPerson.department.manager;
