@@ -1,3 +1,7 @@
-let customer = new Customer(customerData);
+if (aCustomer === "unknown") customerName = "occupant";
 //=========================================>
-let customer = customerRepository.get(customerData.id);
+class UnknownCustomer {
+  get name() {
+    return "occupant";
+  }
+}
