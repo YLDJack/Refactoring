@@ -1,20 +1,20 @@
-class a {
-  get discountedTotal() {
-    return this._discountedTotal;
+function getPayAmount() {
+  let result;
+  if (isDead) result = deadAmount();
+  else {
+    if (isSeparated) result = separatedAmount();
+    else {
+      if (isRetired) result = retiredAmount();
+      elseresult = normalPayAmount();
+    }
   }
-  set discount(aNumber) {
-    const old = this._discount;
-    this._discount = aNumber;
-    this._discountedTotal += old - aNumber;
-  }
+  return result;
 }
 //=========================================>
 
-class a {
-  get discountedTotal() {
-    return this._baseTotal - this._discount;
-  }
-  set discount(aNumber) {
-    this._discount = aNumber;
-  }
+function getPayAmount() {
+  if (isDead) return deadAmount();
+  if (isSeparated) return separatedAmount();
+  if (isRetired) return retiredAmount();
+  return normalPayAmount();
 }

@@ -1,27 +1,29 @@
-class ProductionPlan {
-  get production() {
-    return this._production;
+function payAmount(employee) {
+  let result;
+  if (employee.isSeparated) {
+    result = { amount: 0, reasonCode: "SEP" };
+  } else {
+    if (employee.isRetired) {
+      result = { amount: 0, reasonCode: "RET" };
+    } else {
+      // logic to compute amount lorem.ipsum(dolor.sitAmet);1 consectetur(adipiscing).elit();
+      sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua);
+      ut.enim.ad(minim.veniam);
+      result = someFinalComputation();
+    }
   }
-  applyAdjustment(anAdjustment) {
-    this._adjustments.push(anAdjustment);
-    this._production += anAdjustment.amount;
-  }
+  return result;
 }
 
-//“可以即时计算”只是我的猜想 ——我可以用引入断言（302）来验证这个猜想
+//嵌套的条件逻辑让我们看不清代码真实的含义。只有当 前两个条件表达式都不为真的时候，这段代码才真正开始它 的主要工作。所以，卫语句能让代码更清晰地阐述自己的意 图。一如既往地，我喜欢小步前进，所以我先处理最顶上的 条件逻辑。
 
-class ProductionPlan {
-  get production() {
-    //然后用内联函数（115）把计算逻辑内联到production函 数内
-    return this._adjustments.reduce((sum, a) => sum + a.amount, 0);
-    //放上这个断言之后，我会运行测试。如果断言没有失 败，我就可以不再返回该字段，改为返回即时计算的结果。
-    assert(this._production === this.calculatedProduction);
-    return this._production;
-  }
-  applyAdjustment(anAdjustment) {
-    this._adjustments.push(anAdjustment);
-  }
-  get calculatedProduction() {
-    return this._adjustments.reduce((sum, a) => sum + a.amount, 0);
-  }
+function payAmount(employee) {
+  let result;
+  if (employee.isSeparated) return { amount: 0, reasonCode: "SEP" };
+  if (employee.isRetired) return { amount: 0, reasonCode: "RET" }; // logic to compute amount
+  lorem.ipsum(dolor.sitAmet);
+  consectetur(adipiscing).elit();
+  sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua);
+  ut.enim.ad(minim.veniam);
+  return someFinalComputation();
 }
