@@ -1,11 +1,7 @@
-let temp = 2 * (height + width);
-console.log(temp);
-temp = height * width;
-console.log(temp);
-
+if (!aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd))
+  charge = quantity * plan.summerRate;
+else charge = quantity * plan.regularRate + plan.regularServiceCharge;
 //=========================================>
 
-const perimeter = 2 * (height + width);
-console.log(perimeter);
-const area = height * width;
-console.log(area);
+if (summer()) charge = summerCharge();
+else charge = regularCharge();
