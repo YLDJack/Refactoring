@@ -1,13 +1,11 @@
-if (anEmployee.seniority < 2) return 0;
-if (anEmployee.monthsDisabled > 12) return 0;
-if (anEmployee.isPartTime) return 0;
+function tenPercentRaise(aPerson) {
+  aPerson.salary = aPerson.salary.multiply(1.1);
+}
+function fivePercentRaise(aPerson) {
+  aPerson.salary = aPerson.salary.multiply(1.05);
+}
 //=========================================>
 
-if (isNotEligibleForDisability()) return 0;
-function isNotEligibleForDisability() {
-  return (
-    anEmployee.seniority < 2 ||
-    anEmployee.monthsDisabled > 12 ||
-    anEmployee.isPartTime
-  );
+function raise(aPerson, factor) {
+  aPerson.salary = aPerson.salary.multiply(1 + factor);
 }
