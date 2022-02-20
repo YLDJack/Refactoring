@@ -1,20 +1,18 @@
-function getPayAmount() {
-  let result;
-  if (isDead) result = deadAmount();
-  else {
-    if (isSeparated) result = separatedAmount();
-    else {
-      if (isRetired) result = retiredAmount();
-      elseresult = normalPayAmount();
-    }
+function setDimension(name, value) {
+  if (name === "height") {
+    this._height = value;
+    return;
   }
-  return result;
+  if (name === "width") {
+    this._width = value;
+    return;
+  }
 }
 //=========================================>
 
-function getPayAmount() {
-  if (isDead) return deadAmount();
-  if (isSeparated) return separatedAmount();
-  if (isRetired) return retiredAmount();
-  return normalPayAmount();
+function setHeight(value) {
+  this._height = value;
+}
+function setWidth(value) {
+  this._width = value;
 }
