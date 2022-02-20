@@ -1,3 +1,4 @@
-let customer = new Customer(customerData);
+if (this.discountRate) base = base - this.discountRate * base;
 //=========================================>
-let customer = customerRepository.get(customerData.id);
+assert(this.discountRate >= 0);
+if (this.discountRate) base = base - this.discountRate * base;
