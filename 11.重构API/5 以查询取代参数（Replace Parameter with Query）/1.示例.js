@@ -1,7 +1,7 @@
-if (aCustomer === "unknown") customerName = "occupant";
+availableVacation(anEmployee, anEmployee.grade);
+function availableVacation(anEmployee, grade) {}
 //=========================================>
-class UnknownCustomer {
-  get name() {
-    return "occupant";
-  }
+availableVacation(anEmployee);
+function availableVacation(anEmployee) {
+  const grade = anEmployee.grade;
 }

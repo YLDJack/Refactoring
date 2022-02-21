@@ -1,49 +1,48 @@
-//一家提供公共事业服务的公司将自己的服务安装在各个场所（site）
-
-class Site {
-  get customer() {
-    return this._customer;
+class Order {
+  get finalPrice() {
+    const basePrice = this.quantity * this.itemPrice;
+    let discountLevel;
+    if (this.quantity > 100) discountLevel = 2;
+    else discountLevel = 1;
+    return this.discountedPrice(basePrice, discountLevel);
   }
-  get name() {}
-  get billingPlan() {}
-  set billingPlan(arg) {}
-  get paymentHistory() {}
-
-  //我首先给Customer添加一个函数，用于指示“这个顾客 是否未知”。
-  get isUnknown() {
-    return false;
-  }
-}
-
-//浏览整个代码库，我看到有很多使用Site对象的客户端 在处理“顾客未知”的情况，大多数都用了同样的应对方 式
-//用"occupant"（居民）作为顾客名，使用基本的计价套 餐，并认为这家顾客没有欠费。到处都在检查这种特例，再
-//加上对特例的处理方式高度一致，这些现象告诉我：是时候 使用特例对象（Special Case Object）模式了。
-
-//然后我给“未知的顾客”专门创建一个类。
-class UnknownCustomer {
-  get isUnknown() {
-    return true;
+  discountedPrice(basePrice, discountLevel) {
+    switch (discountLevel) {
+      case 1:
+        return basePrice * 0.95;
+      case 2:
+        return basePrice * 0.9;
+    }
   }
 }
-
-//如果有一段代码需要在很多地方做修改（例如我们这里 的“与特例做比对”的代码），我会先对其使用提炼函数 （106）。
-function isUnknown(arg) {
-  if (!(arg instanceof Customer || arg === "unknown"))
-    //我会放一个陷阱，捕捉意料之外的值。如果在重构过 程中我犯了错误，引入了奇怪的行为，这个陷阱会帮我发 现。
-    throw new Error(`investigate bad value: <${arg}>`);
-  return arg === "unknown";
+//=========================================>
+availableVacation(anEmployee);
+function availableVacation(anEmployee) {
+  const grade = anEmployee.grade;
 }
 
-//
-let customerName;
-if (isUnknown(aCustomer)) customerName = "occupant";
-else customerName = aCustomer.name;
+//在简化函数逻辑时，我总是热衷于使用以查询取代临时 变量（178），于是就得到了如下代码。
 
-//将所有调用处都改为使用isUnknown函数之后，就可以修 改Site类，令其在顾客未知时返回UnknownCustomer对象
-class a {
-  get customer() {
-    return this._customer === "unknown"
-      ? new UnknownCustomer()
-      : this._customer;
+//到这一步，已经不需要再把discountLevel的计算结果传 给discountedPrice了，后者可以自己调用discountLevel函 数，不会增加任何难度。 因此，我把discountedPrice函数中用到这个参数的地方 全都改为直接调用discountLevel函数
+class Order {
+  get finalPrice() {
+    const basePrice = this.quantity * this.itemPrice;
+    return this.discountedPrice(basePrice, this.discountLevel);
+  }
+  get discountLevel() {
+    return this.quantity > 100 ? 2 : 1;
+  }
+  //然后用改变函数声明（124）手法移除该参数。
+  get finalPrice() {
+    const basePrice = this.quantity * this.itemPrice;
+    return this.discountedPrice(basePrice);
+  }
+  discountedPrice(basePrice) {
+    switch (this.discountLevel) {
+      case 1:
+        return basePrice * 0.95;
+      case 2:
+        return basePrice * 0.9;
+    }
   }
 }
