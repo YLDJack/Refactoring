@@ -1,4 +1,8 @@
-if (this.discountRate) base = base - this.discountRate * base;
+targetTemperature(aPlan);
+function targetTemperature(aPlan) {
+  currentTemperature = thermostat.currentTemperature;
+}
 //=========================================>
-assert(this.discountRate >= 0);
-if (this.discountRate) base = base - this.discountRate * base;
+targetTemperature(aPlan, thermostat.currentTemperature);
+function targetTemperature(aPlan, currentTemperature) {}
+ 
