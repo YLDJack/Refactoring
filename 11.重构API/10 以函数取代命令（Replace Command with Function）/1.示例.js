@@ -1,4 +1,13 @@
-if (this.discountRate) base = base - this.discountRate * base;
+class ChargeCalculator {
+  constructor(customer, usage) {
+    this._customer = customer;
+    this._usage = usage;
+  }
+  execute() {
+    return this._customer.rate * this._usage;
+  }
+}
 //=========================================>
-assert(this.discountRate >= 0);
-if (this.discountRate) base = base - this.discountRate * base;
+function charge(customer, usage) {
+  return customer.rate * usage;
+}
