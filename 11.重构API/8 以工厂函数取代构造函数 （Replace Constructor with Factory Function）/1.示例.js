@@ -1,4 +1,3 @@
-if (this.discountRate) base = base - this.discountRate * base;
+leadEngineer = new Employee(document.leadEngineer, "E");
 //=========================================>
-assert(this.discountRate >= 0);
-if (this.discountRate) base = base - this.discountRate * base;
+leadEngineer = createEngineer(document.leadEngineer);
