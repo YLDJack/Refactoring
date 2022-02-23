@@ -1,4 +1,8 @@
-if (this.discountRate) base = base - this.discountRate * base;
+class Person {
+  get name() {}
+  set name(aString) {}
+}
 //=========================================>
-assert(this.discountRate >= 0);
-if (this.discountRate) base = base - this.discountRate * base;
+class Person {
+  get name() {}
+}
