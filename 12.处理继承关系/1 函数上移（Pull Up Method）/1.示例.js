@@ -1,16 +1,14 @@
-function getTotalOutstandingAndSendBill() {
-  const result = customer.invoices.reduce(
-    (total, each) => each.amount + total,
-    0
-  );
-  sendBill();
-  return result;
+class Employee {}
+class Salesman extends Employee {
+  get name() {}
+}
+class Engineer extends Employee {
+  get name() {}
 }
 //=========================================>
 
-function totalOutstanding() {
-  return customer.invoices.reduce((total, each) => each.amount + total, 0);
+class Employee {
+  get name() {}
 }
-function sendBill() {
-  emailGateway.send(formatBill(customer));
-}
+class Salesman extends Employee {}
+class Engineer extends Employee {}
