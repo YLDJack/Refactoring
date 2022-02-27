@@ -1,11 +1,14 @@
-function tenPercentRaise(aPerson) {
-  aPerson.salary = aPerson.salary.multiply(1.1);
+class Employee {} // Java
+class Salesman extends Employee {
+private String name;
 }
-function fivePercentRaise(aPerson) {
-  aPerson.salary = aPerson.salary.multiply(1.05);
+class Engineer extends Employee {
+private String name;
 }
 //=========================================>
 
-function raise(aPerson, factor) {
-  aPerson.salary = aPerson.salary.multiply(1 + factor);
-}
+class Employee {
+  protected String name;
+  }
+  class Salesman extends Employee {}
+  class Engineer extends Employee {}
