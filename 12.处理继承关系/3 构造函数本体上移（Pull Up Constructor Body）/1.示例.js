@@ -1,18 +1,22 @@
-function setDimension(name, value) {
-  if (name === "height") {
-    this._height = value;
-    return;
-  }
-  if (name === "width") {
-    this._width = value;
-    return;
+class Party {}
+class Employee extends Party {
+  constructor(name, id, monthlyCost) {
+    super();
+    this._id = id;
+    this._name = name;
+    this._monthlyCost = monthlyCost;
   }
 }
-//=========================================>
-
-function setHeight(value) {
-  this._height = value;
+//==========================>
+class Party {
+  constructor(name) {
+    this._name = name;
+  }
 }
-function setWidth(value) {
-  this._width = value;
+class Employee extends Party {
+  constructor(name, id, monthlyCost) {
+    super(name);
+    this._id = id;
+    this._monthlyCost = monthlyCost;
+  }
 }
