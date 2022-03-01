@@ -1,4 +1,9 @@
-const low = aRoom.daysTempRange.low; const high = aRoom.daysTempRange.high; if (aPlan.withinRange(low, high))
+class Employee { get quota {} }
+
+class Engineer extends Employee {} 
+class Salesman extends Employee {}
 //=========================================>
 
-if (aPlan.withinRange(aRoom.daysTempRange))
+class Employee {} 
+class Engineer extends Employee {} 
+class Salesman extends Employee { get quota {} }
