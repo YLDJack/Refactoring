@@ -1,7 +1,8 @@
-availableVacation(anEmployee, anEmployee.grade);
-function availableVacation(anEmployee, grade) {}
+class Employee { // Java 
+  private String quota; }
+  class Engineer extends Employee {} 
+  class Salesman extends Employee {}
 //=========================================>
-availableVacation(anEmployee);
-function availableVacation(anEmployee) {
-  const grade = anEmployee.grade;
-}
+class Employee {} 
+class Engineer extends Employee {} 
+class Salesman extends Employee { protected String quota; }
