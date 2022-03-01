@@ -1,70 +1,80 @@
-class HeatingPlan {
-  get targetTemperature() {
-    if (thermostat.selectedTemperature > this._max) return this._max;
-    else if (thermostat.selectedTemperature < this._min) return this._min;
-    else return thermostat.selectedTemperature;
+class Employee {
+  constructor(name, type) {
+    this.validateType(type);
+    this._name = name;
+    this._type = type;
   }
-}
-//调用方...
-if (thePlan.targetTemperature > thermostat.currentTemperature) setToHeat();
-else if (thePlan.targetTemperature < thermostat.currentTemperature) setToCool();
-else setOff();
-
-//系统的温控计划规则抑制了我的要求，作为这样一个系 统的用户，我可能会感到很烦恼。不过作为程序员，我更担 心的是targetTemperature函数依赖于全局的thermostat对象。 我可以把需要这个对象提供的信息作为参数传入，从而打破 对该对象的依赖。
-
-class HeatingPlan {
-  get targetTemperature() {
-    ////首先，我要用提炼变量（119）把“希望作为参数传入 的信息”提炼出来。
-    const selectedTemperature = thermostat.selectedTemperature;
-    if (selectedTemperature > this._max) return this._max;
-    else if (selectedTemperature < this._min) return this._min;
-    else return selectedTemperature;
+  validateType(arg) {
+    if (!["engineer", "manager", "salesman"].includes(arg))
+      throw new Error(`Employee cannot be of type ${arg}`);
   }
-  //这样可以比较容易地用提炼函数（106）把整个函数体 提炼出来，只剩“计算参数值”的逻辑还在原地
-  xxNEWtargetTemperature(selectedTemperature) {
-    if (selectedTemperature > this._max) return this._max;
-    else if (selectedTemperature < this._min) return this._min;
-    else return selectedTemperature;
-  }
-
-  //然后把刚才提炼出来的变量内联回去，于是旧函数就只 剩一个简单的调用
-  get targetTemperature() {
-    return this.xxNEWtargetTemperature(thermostat.selectedTemperature);
+  toString() {
+    return `${this._name} (${this._type})`;
   }
 }
 
-//现在可以对其使用内联函数（115）。
-if (
-  thePlan.xxNEWtargetTemperature(thermostat.selectedTemperature) >
-  thermostat.currentTemperature
-)
-  setToHeat();
-else if (
-  thePlan.xxNEWtargetTemperature(thermostat.selectedTemperature) <
-  thermostat.currentTemperature
-)
-  setToCool();
-else setOff();
-
-//再把新函数改名，用回旧函数的名字。得益于之前给它 起了一个容易搜索的名字，现在只要把前缀去掉就行。
-
-if (
-  thePlan.targetTemperature(thermostat.selectedTemperature) >
-  thermostat.currentTemperature
-)
-  setToHeat();
-else if (
-  thePlan.targetTemperature(thermostat.selectedTemperature) <
-  thermostat.currentTemperature
-)
-  setToCool();
-else setOff();
-
-class HeatingPlan {
-  targetTemperature(selectedTemperature) {
-    if (selectedTemperature > this._max) return this._max;
-    else if (selectedTemperature < this._min) return this._min;
-    else return selectedTemperature;
+//第一步是用封装变量（132）将类型码自封装起来。
+class Employee {
+  get type() {
+    return this._type;
+  }
+  //请注意，toString函数的实现中去掉了this._type的下划 线，改用新建的取值函数了。
+  toString() {
+    return `${this._name} (${this.type})`;
   }
 }
 
+//我选择从工程师（"engineer"）这个类型码开始重构。 我打算采用直接继承的方案，也就是继承Employee类。子类 很简单，只要覆写类型码的取值函数，返回适当的字面量值 就行了。
+class Engineer extends Employee {
+  get type() {
+    return "engineer";
+  }
+}
+//虽然JavaScript的构造函数也可以返回其他对象，但 如果把选择器逻辑放在这儿，它会与字段初始化逻辑相互纠 缠，搞得一团混乱。所以我会先运用以工厂函数取代构造函 数（334），新建一个工厂函数以便安放选择器逻辑
+function createEmployee(name, type) {
+  return new Employee(name, type);
+}
+
+//然后我把选择器逻辑放在工厂函数中，从而开始使用新 的子类。
+
+function createEmployee(name, type) {
+  switch (type) {
+    case "engineer":
+      return new Engineer(name, type);
+  }
+  return new Employee(name, type);
+}
+
+//测试，确保一切运转正常。不过由于我的偏执，我随后 会修改Engineer类中覆写的type函数，让它返回另外一个 值，再次执行测试，确保会有测试失败，这样我才能肯定： 新建的子类真的被用到了。然后我把type函数的返回值改回 正确的状态，继续处理别的类型。我一次处理一个类型，每 次修改后都执行测试。
+class Salesman extends Employee {
+  get type() {
+    return "salesman";
+  }
+}
+class Manager extends Employee {
+  get type() {
+    return "manager";
+  }
+}
+function createEmployee(name, type) {
+  switch (type) {
+    case "engineer":
+      return new Engineer(name, type);
+    case "salesman":
+      return new Salesman(name, type);
+    case "manager":
+      return new Manager(name, type);
+  }
+  return new Employee(name, type);
+}
+
+//全部修改完成后，我就可以去掉类型码字段及其在超类 中的取值函数（子类中的取值函数仍然保留）。
+//测试，确保一切工作正常，我就可以移除验证逻辑，因 为分发逻辑做的是同一回事。
+
+//现在，构造函数的类型参数已经没用了，用改变函数声 明（124）把它干掉。
+class Employee{
+  constructor(name){ this._name = name; }
+  function createEmployee(name) { 
+    switch (type) { case "engineer": return new Engineer(name, ); case "salesman": return new Salesman(name, ); case "manager": return new Manager (name, ); default: throw new Error(`Employee cannot be of type ${type}`); 
+  } }
+}

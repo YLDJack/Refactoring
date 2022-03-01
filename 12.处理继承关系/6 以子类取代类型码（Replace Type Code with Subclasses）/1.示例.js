@@ -1,8 +1,14 @@
-targetTemperature(aPlan);
-function targetTemperature(aPlan) {
-  currentTemperature = thermostat.currentTemperature;
+function createEmployee(name, type) {
+  return new Employee(name, type);
 }
 //=========================================>
-targetTemperature(aPlan, thermostat.currentTemperature);
-function targetTemperature(aPlan, currentTemperature) {}
- 
+function createEmployee(name, type) {
+  switch (type) {
+    case "engineer":
+      return new Engineer(name);
+    case "salesman":
+      return new Salesman(name);
+    case "manager":
+      return new Manager(name);
+  }
+}
