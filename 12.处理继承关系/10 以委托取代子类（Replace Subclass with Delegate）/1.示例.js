@@ -1,13 +1,23 @@
-class ChargeCalculator {
-  constructor(customer, usage) {
-    this._customer = customer;
-    this._usage = usage;
+class Order {
+  get daysToShip() {
+    return this._warehouse.daysToShip;
   }
-  execute() {
-    return this._customer.rate * this._usage;
+}
+class PriorityOrder extends Order {
+  get daysToShip() {
+    return this._priorityPlan.daysToShip;
   }
 }
 //=========================================>
-function charge(customer, usage) {
-  return customer.rate * usage;
+class Order {
+  get daysToShip() {
+    return this._priorityDelegate
+      ? this._priorityDelegate.daysToShip
+      : this._warehouse.daysToShip;
+  }
+}
+class PriorityOrderDelegate {
+  get daysToShip() {
+    return this._priorityPlan.daysToShip;
+  }
 }
